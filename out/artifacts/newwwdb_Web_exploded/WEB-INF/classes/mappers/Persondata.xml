@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wjb.newwwdb.dao.PersondataMapper">
+    <resultMap id="BaseResultMap" type="com.wjb.newwwdb.pojo.Persondata">
+        <id column="persondata_id" jdbcType="BIGINT" property="persondataId" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="person_name" jdbcType="VARCHAR" property="personName" />
+        <result column="sub_title" jdbcType="VARCHAR" property="subTitle" />
+        <result column="author" jdbcType="VARCHAR" property="author" />
+        <result column="cover" jdbcType="VARCHAR" property="cover" />
+        <result column="evaluation_score" jdbcType="REAL" property="evaluationScore" />
+        <result column="evaluation_quantity" jdbcType="INTEGER" property="evaluationQuantity" />
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wjb.newwwdb.pojo.Persondata">
+        <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    persondata_id, username, person_name, sub_title, author, cover, evaluation_score,
+    evaluation_quantity
+  </sql>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from persondata
+    where persondata_id = #{persondataId,jdbcType=BIGINT}
+  </delete>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wjb.newwwdb.pojo.Persondata">
+        update persondata
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="personName != null">
+                person_name = #{personName,jdbcType=VARCHAR},
+            </if>
+            <if test="subTitle != null">
+                sub_title = #{subTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="cover != null">
+                cover = #{cover,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluationScore != null">
+                evaluation_score = #{evaluationScore,jdbcType=REAL},
+            </if>
+            <if test="evaluationQuantity != null">
+                evaluation_quantity = #{evaluationQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where persondata_id = #{persondataId,jdbcType=BIGINT}
+    </update>
+</mapper>

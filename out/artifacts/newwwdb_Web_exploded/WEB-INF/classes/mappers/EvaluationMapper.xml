@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wjb.newwwdb.dao.EvaluationMapper">
+    <resultMap id="BaseResultMap" type="com.wjb.newwwdb.pojo.Evaluation">
+        <id column="evaluation_id" jdbcType="BIGINT" property="evaluationId" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="score" jdbcType="INTEGER" property="score" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="persondata_id" jdbcType="BIGINT" property="persondataId" />
+        <result column="enjoy" jdbcType="INTEGER" property="enjoy" />
+        <result column="state" jdbcType="VARCHAR" property="state" />
+        <result column="disable_reason" jdbcType="VARCHAR" property="disableReason" />
+        <result column="disable_time" jdbcType="TIMESTAMP" property="disableTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    evaluation_id, content, score, create_time, user_id, persondata_id, enjoy, state,
+    disable_reason, disable_time
+  </sql>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from evaluation
+    where persondata_id = #{persondataId,jdbcType=BIGINT}
+  </delete>
+    <select id="selectByEvaluationId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from evaluation
+        where evaluation_id=#{evaluationId,jdbcType=BIGINT}
+    </select>
+    <update id="updateEvaluation" parameterType="com.wjb.newwwdb.pojo.Evaluation">
+        update evaluation
+        set enjoy=#{enjoy,jdbcType=BIGINT}
+       where evaluation_id=#{evaluationId,jdbcType=BIGINT}
+    </update>
+</mapper>
